@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ママとも助産院 カウンセリングシート</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            /* おしゃれなカラーパレット定義 */
+            --main-bg: #f9f8f6; /* 生成り色 */
+            --card-bg: #ffffff;
+            --text-color: #5a524c; /* 真っ黒ではなく温かみのある焦げ茶 */
+            --accent-green: #8a9a5b; /* セージグリーン（ハーブのような緑） */
+            --accent-pink: #d8b4a0; /* ダスティピンク（落ち着いた赤み） */
+            --input-bg: #fdfdfd;
+            --border-color: #e6e3de;
+        }
+
+        body {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            background-color: var(--main-bg);
+            /* 背景にうっすらノイズを入れて紙のような質感を出す */
+            background-image: 
+                linear-gradient(var(--main-bg), var(--main-bg)),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 15px;
+            line-height: 1.6;
+        }
+
+        /* フェードインアニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            /* 柔らかい影 */
+            box-shadow: 0 10px 40px rgba(90, 82, 76, 0.05);
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            box-sizing: border-box;
+            border: 1px solid #fff;
+            animation: fadeIn 0.8s ease-out;
+            position: relative;
+        }
+
+        /* 上部の装飾線 */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--accent-green),
+                var(--accent-green) 10px,
+                #fff 10px,
+                #fff 20px
+            );
+            border-radius: 12px 12px 0 0;
+            opacity: 0.5;
+        }
+
+        h1 {
+            font-family: 'Shippori Mincho', serif;
+            color: var(--text-color);
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+        }
+
+        h1 span {
+            display: block;
+            font-size: 13px;
+            color: var(--accent-green);
+            margin-top: 5px;
+            font-family: 'Zen Maru Gothic', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+        }
+
+        .description {
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 40px;
+            color: #888;
+        }
+
+        .label-group {
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        /* 必須・任意バッジ（ミニマルに） */
+        .badge {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            margin-left: 10px;
+            vertical-align: middle;
+            letter-spacing: 0.05em;
+        }
+        .badge-required {
+            background-color: #fff;
+            border: 1px solid var(--accent-pink);
+            color: var(--accent-pink);
+        }
+        .badge-optional {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            color: #999;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            font-family: 'Zen Maru Gothic', sans-serif;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--accent-green);
+            background-color: #fff;
+            outline: none;
+            box-shadow: 0 4px 12px rgba(138, 154, 91, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.8;
+        }
+
+        /* 選択ボタンのデザイン */
+        .select-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .select-buttons button {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
+            color: #888;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: 'Zen Maru Gothic', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .select-buttons button:hover {
+            background-color: #fcfcfc;
+            border-color: #ccc;
+        }
+
+        .select-buttons button.active {
+            background-color: var(--accent-green);
+            color: white;
+            border-color: var(--accent-green);
+            box-shadow: 0 4px 10px rgba(138, 154, 91, 0.3);
+        }
+
+        /* 送信ボタン */
+        .submit-button {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 50px; /* 丸みのあるボタン */
+            background: linear-gradient(135deg, var(--accent-green), #758654);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 30px;
+            letter-spacing: 0.15em;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Zen Maru Gothic', sans-serif;
+            box-shadow: 0 4px 15px rgba(117, 134, 84, 0.3);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(117, 134, 84, 0.4);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        /* スマホ向けの微調整 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+                box-shadow: none; /* スマホではフラットに */
+            }
+            body {
+                padding: 0;
+                background-color: #fff;
+            }
+            .container::before {
+                display: none;
+            }
+            .container {
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>ママとも助産院<br><span>Counseling Sheet</span></h1>
+        <p class="description">
+            リラックスしてご記入ください。<br>
+            ご不明な点はお気軽にご相談ください。
+        </p>
+
+        <div class="label-group">
+            <label>①お名前<span class="badge badge-required">必須</span></label>
+            <input type="text" id="name" placeholder="助産 花子">
+        </div>
+
+        <div class="label-group">
+            <label>②お電話番号<span class="badge badge-required">必須</span></label>
+            <input type="tel" id="tel" placeholder="090-1234-5678">
+        </div>
+
+        <div class="label-group">
+            <label>③当院のご利用回数<span class="badge badge-required">必須</span></label>
+            <div class="select-buttons">
+                <button type="button" onclick="selectVisit(this, '初回')">初回</button>
+                <button type="button" onclick="selectVisit(this, '2回目以降')">2回目以降</button>
+            </div>
+            <input type="hidden" id="visit_count">
+        </div>
+
+        <div class="label-group">
+            <label>④ご出産日<span class="badge badge-required">必須</span></label>
+            <input type="text" id="delivery_date" placeholder="2024年10月1日">
+        </div>
+
+        <div class="label-group">
+            <label>⑤何人目のお子様ですか？<span class="badge badge-required">必須</span></label>
+            <input type="text" id="child_count" placeholder="1人目">
+        </div>
+
+        <div class="label-group">
+            <label>⑥ご相談内容<span class="badge badge-required">必須</span></label>
+            <textarea id="consultation" placeholder="育児について悩んでいます。"></textarea>
+        </div>
+
+        <div class="label-group">
+            <label>⑦お住まいの市町村<span class="badge badge-required">必須</span></label>
+            <input type="text" id="address" placeholder="函南町">
+        </div>
+
+        <div class="label-group">
+            <label>⑧備考<span class="badge badge-optional">任意</span></label>
+            <textarea id="remarks" placeholder="その他、伝えておきたいことなどあればご記入ください。" style="min-height: 80px;"></textarea>
+        </div>
+
+        <button class="submit-button" onclick="submitForm()">内容を送信する</button>
+    </div>
+
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    <script>
+        // LIFF IDを設定
+        const MY_LIFF_ID = '2005254357-zKma9BZk';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            liff.init({
+                liffId: MY_LIFF_ID
+            }).then(() => {
+                console.log('LIFF初期化成功');
+            }).catch((err) => {
+                console.error('LIFF初期化失敗', err);
+            });
+        });
+
+        function selectVisit(element, value) {
+            const buttons = element.parentElement.querySelectorAll('button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('visit_count').value = value;
+        }
+
+        function submitForm() {
+            const name = document.getElementById('name').value;
+            const tel = document.getElementById('tel').value;
+            const visitCount = document.getElementById('visit_count').value;
+            const deliveryDate = document.getElementById('delivery_date').value;
+            const childCount = document.getElementById('child_count').value;
+            const consultation = document.getElementById('consultation').value;
+            const address = document.getElementById('address').value;
+            const remarks = document.getElementById('remarks').value;
+
+            if (!name) { alert('①お名前を入力してください。'); return; }
+            if (!tel) { alert('②お電話番号を入力してください。'); return; }
+            if (!visitCount) { alert('③ご利用回数を選択してください。'); return; }
+            if (!deliveryDate) { alert('④ご出産日を入力してください。'); return; }
+            if (!childCount) { alert('⑤何人目のお子様か入力してください。'); return; }
+            if (!consultation) { alert('⑥ご相談内容を入力してください。'); return; }
+            if (!address) { alert('⑦お住まいの市町村を入力してください。'); return; }
+
+            const messageText = `
+【ママとも助産院 カウンセリングシート】
+
+①お名前
+${name}
+
+②お電話番号
+${tel}
+
+③ご利用回数
+${visitCount}
+
+④ご出産日
+${deliveryDate}
+
+⑤お子様
+${childCount}
+
+⑥ご相談内容
+${consultation}
+
+⑦お住まい
+${address}
+
+⑧備考
+${remarks || 'なし'}
+`.trim();
+
+            if (!liff.isInClient()) {
+                alert('この機能はLINEアプリ内でのみ動作します。');
+                return;
+            }
+
+            liff.sendMessages([{
+                type: 'text',
+                text: messageText
+            }]).then(() => {
+                alert('送信しました。ありがとうございます。');
+                liff.closeWindow();
+            }).catch((err) => {
+                console.error('送信エラー', err);
+                alert('送信に失敗しました。');
+            });
+        }
+    </script>
+</body>
+</html>
